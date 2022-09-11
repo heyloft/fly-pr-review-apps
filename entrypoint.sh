@@ -36,12 +36,12 @@ fi
 
 # Deploy the Fly app, creating it first if needed.
 if ! flyctl status --app "$app"; then
-  flyctl create --name "$app" --org "$org"
+  flyctl apps create --name "$app" --org "$org"
 fi
 
 # Attach postgres cluster to the app if specified.
 if [ -n "$INPUT_POSTGRES" ]; then
-  flyctl postgres attach --app "$app" --postgres-app "$INPUT_POSTGRES" || true
+  flyctl postgres attach --app "$app" "$INPUT_POSTGRES" || true
 fi
 
 if [ "$INPUT_UPDATE" != "false" ]; then
